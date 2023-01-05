@@ -1,25 +1,25 @@
-package com.practice.ds.scaler.practice.day63;
+package com.practice.ds.scaler.practice.day64;
 
-import com.practice.ds.scaler.practice.day64.Pair;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import java.util.*;
-
-public class LevelOrder {
+public class ZigZagLevelOrderTraversalBT {
     public static void main(String[] args) {
-        /*3
-         / \
-        9  20
-          /  \
-        15   7*/
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
-        System.out.println(levelOrder(root));
+        root.left.left.left = new TreeNode(8);
+
+        System.out.println(zigzagLevelOrder(root));
     }
 
-    public static ArrayList<ArrayList<Integer>> levelOrder(TreeNode A) {
+    public static ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode A) {
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
         HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
         Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
@@ -40,12 +40,13 @@ public class LevelOrder {
             list.add(key.val);
             map.put(value, list);
             level = value + 1;
-            if (key.left != null) {
-                Pair<TreeNode, Integer> leftPair = new Pair<>(key.left, level);
-                queue.add(leftPair);
-            }
             if (key.right != null) {
                 Pair<TreeNode, Integer> leftPair = new Pair<>(key.right, level);
+                queue.add(leftPair);
+            }
+
+            if (key.left != null) {
+                Pair<TreeNode, Integer> leftPair = new Pair<>(key.left, level);
                 queue.add(leftPair);
             }
         }

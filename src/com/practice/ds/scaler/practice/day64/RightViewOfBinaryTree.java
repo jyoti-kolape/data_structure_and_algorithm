@@ -1,26 +1,23 @@
-package com.practice.ds.scaler.practice.day63;
-
-import com.practice.ds.scaler.practice.day64.Pair;
+package com.practice.ds.scaler.practice.day64;
 
 import java.util.*;
 
-public class LevelOrder {
+public class RightViewOfBinaryTree {
     public static void main(String[] args) {
-        /*3
-         / \
-        9  20
-          /  \
-        15   7*/
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
         root.right.right = new TreeNode(7);
-        System.out.println(levelOrder(root));
+        root.left.left.left = new TreeNode(8);
+
+        System.out.println(solve(root));
     }
 
-    public static ArrayList<ArrayList<Integer>> levelOrder(TreeNode A) {
-        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+    public static ArrayList<Integer> solve(TreeNode A) {
+        ArrayList<Integer> ans = new ArrayList<>();
         HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
         Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
 
@@ -51,7 +48,7 @@ public class LevelOrder {
         }
         for (int i = 0; i < map.size(); i++) {
             ArrayList<Integer> list = map.get(i);
-            ans.add(list);
+            ans.add(list.get(list.size() - 1));
         }
         return ans;
     }
